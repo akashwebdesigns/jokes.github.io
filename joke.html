@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <title>Jokes API</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: rgb(52, 141, 214);
+        font-family: "Roboto", sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 741px;
+      }
+      .container {
+        width: 600px;
+        height: 500px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+        flex-direction: column;
+      }
+      .joke {
+        margin: 14px;
+      }
+      h3 {
+        color: red;
+      }
+      #btn {
+        width: 95px;
+        height: 32px;
+        padding: 4px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        background: linear-gradient(to right, #c0392b, #8e44ad);
+        cursor: pointer;
+        border-radius: 10px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h3 class="joke">Awesome Jokes Here</h3>
+        <div class="joke" id="jokeText">Joke is loading..</div>
+        <button id="btn" class="joke">Next Joke</button>
+      </div>
+    </header>
+  </body>
+  <script>
+    const joke = document.getElementById("jokeText");
+    const jokeBtn = document.getElementById("btn");
+
+    // const getJokes = () => {
+    //   const setHeader = {
+    //     headers: {
+    //       Accept: "application/json",
+    //     },
+    //   };
+    //   fetch("https://v2.jokeapi.dev/joke/Any?type=single", setHeader)
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       joke.innerHTML = data.joke;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // };
+
+    //Using Async Await
+
+    const getJokes = async () => {
+      try {
+        const setHeader = {
+          headers: {
+            Accept: "application/json",
+          },
+        };
+
+        const res = await fetch("https://v2.jokeapi.dev/joke/Any?type=single",setHeader);
+        const data = await res.json();
+        joke.innerHTML = data.joke;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    jokeBtn.addEventListener("click", getJokes);
+    getJokes();
+  </script>
+</html>
